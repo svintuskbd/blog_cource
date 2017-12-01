@@ -1,20 +1,21 @@
 <?php require_once 'header.php'; ?>
+<?php //var_dump(deleteArticle(6)); ?>
       <!-- Page Heading -->
       <h1 class="my-4">Page Heading
         <small>Secondary Text</small>
       </h1>
       <div class="row">
-  		<?php $articles = generateArticle(6); ?>
+  		<?php $articles = getArticles(); ?>
   		<?php if (is_array($articles) && !empty($articles)): ?>
 	  		<?php foreach ($articles as $article): ?>
 		        <div class="col-lg-4 col-sm-6 portfolio-item">
 		          <div class="card h-100">
-		            <a href="javaScript:void(0)"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+		            <a href="single.php?article=<?php echo $article['id']; ?>"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 		            <div class="card-body">
 		              <h4 class="card-title">
-		                <a href="javaScript:void(0)"><?php echo $article['title']; ?></a>
+		                <a href="single.php?article=<?php echo $article['id']; ?>"><?php echo $article['title']; ?></a>
 		              </h4>
-		              <p class="card-text"><?php echo $article['content']; ?></p>
+		              <p class="card-text"><?php echo $article['text']; ?></p>
 		            </div>
 		          </div>
 		        </div>
