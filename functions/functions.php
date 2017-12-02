@@ -1,7 +1,9 @@
 <?php
+session_start();
 const TITLE_BLOG = 'My first blog';
 
-function connectDb() {
+function connectDb()
+{
     try {
         $dbh = new PDO('mysql:host=localhost;dbname=blog_cource', 'root', '19888813');
 
@@ -13,9 +15,9 @@ function connectDb() {
     }
 }
 
-function insertArticle($title, $text) {
+function insertArticle($title, $text)
+{
     $db = connectDb();
-
     if ($db) {
         $sql = "INSERT INTO article(title, text) VALUES ( :title,  :text)";
 
@@ -28,7 +30,8 @@ function insertArticle($title, $text) {
     }
 }
 
-function getArticles() {
+function getArticles()
+{
     $db = connectDb();
     if ($db) {
         $sql = "SELECT * FROM article";
@@ -39,7 +42,8 @@ function getArticles() {
     return false;
 }
 
-function getArticle($id) {
+function getArticle($id)
+{
     $db = connectDb();
     if ($db) {
         $sql = "SELECT * FROM article WHERE id=$id";
@@ -50,11 +54,12 @@ function getArticle($id) {
     return false;
 }
 
-function updateArticle($article, $id) {
+function updateArticle($article, $id)
+{
     $db = connectDb();
     if ($db) {
         $sql = "UPDATE article 
-              SET title = '".$article['title']."', text = '".$article['text']."' 
+              SET title = '" . $article['title'] . "', text = '" . $article['text'] . "' 
               WHERE id = $id";
 
         return $db->prepare($sql)->execute();
@@ -63,7 +68,8 @@ function updateArticle($article, $id) {
     return false;
 }
 
-function deleteArticle($id) {
+function deleteArticle($id)
+{
     $db = connectDb();
     if ($db) {
         $sql = "DELETE FROM article WHERE id=$id";
@@ -74,14 +80,32 @@ function deleteArticle($id) {
     return false;
 }
 
-function getTitleBlog() {
-	return TITLE_BLOG;
+function getTitleBlog()
+{
+    return TITLE_BLOG;
 }
 
-function displayTitleBlog() {
-	echo TITLE_BLOG;
+function displayTitleBlog()
+{
+    echo TITLE_BLOG;
 }
 
-function displayNotFoundText() {
-	echo 'Not found articles';
+function displayNotFoundText()
+{
+    echo 'Not found articles';
+}
+
+function calc($arg1, $arg2, $action)
+{
+    if ($action == '+') {
+        return ['arg1' => $arg1, 'arg2' => $arg2, 'action' => $action, 'result' => $arg1 + $arg2];
+    } elseif ($action == '-') {
+        return ['arg1' => $arg1, 'arg2' => $arg2, 'action' => $action, 'result' => $arg1 - $arg2];
+    } elseif ($action == '*') {
+        return ['arg1' => $arg1, 'arg2' => $arg2, 'action' => $action, 'result' => $arg1 * $arg2];
+    } elseif ($action == '/') {
+        return ['arg1' => $arg1, 'arg2' => $arg2, 'action' => $action, 'result' => $arg1 / $arg2];
+    }
+
+    return false;
 }
