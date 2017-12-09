@@ -1,6 +1,11 @@
 <?php
+require "Article.php";
+require "Car.php";
+
 session_start();
 const TITLE_BLOG = 'My first blog';
+
+
 
 function connectDb()
 {
@@ -13,6 +18,23 @@ function connectDb()
 
         return false;
     }
+}
+
+function searchArtickle($title)
+{
+//    $db = connectDb();
+//    if ($db) {
+//        $search = '%'.$title.'%';
+//        $stmt = $db->prepare("SELECT * FROM article WHERE title LIKE :needle");
+//        $stmt->bindValue(':needle', $search, PDO::PARAM_STR);
+//        $stmt->execute();
+//
+//        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+//    }
+//
+//    return false;
+
+    echo $_POST;
 }
 
 function insertArticle($title, $text)
@@ -34,7 +56,9 @@ function getArticles()
 {
     $db = connectDb();
     if ($db) {
-        $sql = "SELECT * FROM article";
+        $sql = "SELECT article.*, user.name
+                FROM article
+                LEFT JOIN user ON article.id=user_id";
 
         return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
